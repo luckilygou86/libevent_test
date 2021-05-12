@@ -117,8 +117,10 @@ void conn_eventcb(struct bufferevent *bev, short events, void *user_data)
     {
         printf("Connect succeed\n");
         //客户端链接成功后，给服务器发送第一条消息
-        char *reply_msg = (char *)"I receive a message from client";
-        bufferevent_write(bev, reply_msg, strlen(reply_msg));
+        //触发write事件
+        bufferevent_trigger(bev, EV_WRITE, 0);
+        /* char *reply_msg = (char *)"I receive a message from client";
+        bufferevent_write(bev, reply_msg, strlen(reply_msg)); */
         return ;
     }
    
